@@ -4,9 +4,15 @@ import robocode.*;
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/JuniorRobot.html
 
 
-public class LaboRobot extends JuniorRobot
+public class CoDicRobot extends JuniorRobot
 {
 
+	private WarStrategy warStrategy;
+	
+	public CoDicRobot() {
+		warStrategy = new NormalStrategy(this);
+	}
+	
 	@Override	
 	public void run() {
 
@@ -14,11 +20,10 @@ public class LaboRobot extends JuniorRobot
 
 
 		while(true) {
-		
-			ahead(100);
-			turnGunRight(360);
-			back(100);
-			turnGunRight(360);
+			warStrategy.handle();
+			if (energy < 20) {
+				warStrategy = new WarningStrategy(this);
+			}
 		}
 	}
 
@@ -27,7 +32,7 @@ public class LaboRobot extends JuniorRobot
 	 */
 	@Override
 	public void onScannedRobot() {
-		fire(1);
+		warStrategy.handleAtack();
 	}
 
 	/**
@@ -35,7 +40,7 @@ public class LaboRobot extends JuniorRobot
 	 */
 	@Override
 	public void onHitByBullet() {
-		back(10);
+		warStrategy.handleHit();
 	}
 	
 	/**
@@ -43,6 +48,6 @@ public class LaboRobot extends JuniorRobot
 	 */
 	@Override
 	public void onHitWall() {
-		back(20);
+		warStrategy.handleWall();
 	}	
 }
