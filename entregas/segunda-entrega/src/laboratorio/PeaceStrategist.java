@@ -1,11 +1,11 @@
 package laboratorio;
 
-public class WarStrategist extends AbstractStrategist {
-	private static WarStrategist instance = new WarStrategist();
+public class PeaceStrategist extends AbstractStrategist {
+	private static PeaceStrategist instance = new PeaceStrategist();
 	
-	private WarStrategist() {}
+	private PeaceStrategist() {}
 	
-	public WarStrategist getStrategist() {
+	public PeaceStrategist getStrategist() {
 		return instance;
 	}
 	
@@ -32,9 +32,8 @@ public class WarStrategist extends AbstractStrategist {
 			}
 
 			@Override
-			public void handleAtack() {		
-				robot.turnGunTo(robot.scannedAngle);
-				robot.fire(1);
+			public void handleAtack() {
+				robot.turnGunRight(10);
 			}
 
 			@Override
@@ -43,8 +42,6 @@ public class WarStrategist extends AbstractStrategist {
 				robot.turnLeft(15);
 				robot.back(85);
 				robot.turnRight(20);
-				robot.turnGunTo(robot.hitByBulletAngle);
-				robot.fire(0.5);
 			}
 
 			@Override
@@ -108,7 +105,7 @@ public class WarStrategist extends AbstractStrategist {
 	}
 	
 	public static WarStrategy getStrategyForRobot(CoDicRobot robot) {
-		if (robot.energy < 65) {
+		if (robot.energy <= 60) {
 			return instance.getWarningStrategyForRobot(robot);
 		}
 		

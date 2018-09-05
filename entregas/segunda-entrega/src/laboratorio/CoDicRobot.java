@@ -6,8 +6,7 @@ import robocode.*;
 
 public class CoDicRobot extends JuniorRobot
 {
-
-	private WarStrategy warStrategy;
+	private WarStrategy strategy;
 	
 	@Override	
 	public void run() {
@@ -16,8 +15,8 @@ public class CoDicRobot extends JuniorRobot
 
 
 		while(true) {
-			warStrategy = WarStrategist.getStrategyForRobot(this);
-			warStrategy.handleMove();
+			strategy = WarStrategist.getStrategyForRobot(this);
+			strategy.handleMove();
 		}
 	}
 
@@ -26,7 +25,7 @@ public class CoDicRobot extends JuniorRobot
 	 */
 	@Override
 	public void onScannedRobot() {
-		warStrategy.handleAtack();
+		strategy.handleAtack();
 	}
 
 	/**
@@ -34,7 +33,7 @@ public class CoDicRobot extends JuniorRobot
 	 */
 	@Override
 	public void onHitByBullet() {
-		warStrategy.handleHit();
+		strategy.handleHit();
 	}
 	
 	/**
@@ -42,6 +41,6 @@ public class CoDicRobot extends JuniorRobot
 	 */
 	@Override
 	public void onHitWall() {
-		warStrategy.handleWall();
+		strategy.handleWall();
 	}	
 }
