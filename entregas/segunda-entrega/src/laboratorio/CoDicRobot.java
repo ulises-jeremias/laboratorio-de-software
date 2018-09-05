@@ -9,10 +9,6 @@ public class CoDicRobot extends JuniorRobot
 
 	private WarStrategy warStrategy;
 	
-	public CoDicRobot() {
-		warStrategy = new NormalStrategy(this);
-	}
-	
 	@Override	
 	public void run() {
 
@@ -20,10 +16,8 @@ public class CoDicRobot extends JuniorRobot
 
 
 		while(true) {
-			warStrategy.handle();
-			if (energy < 20) {
-				warStrategy = new WarningStrategy(this);
-			}
+			warStrategy = WarStrategist.getStrategyForRobot(this);
+			warStrategy.handleMove();
 		}
 	}
 
