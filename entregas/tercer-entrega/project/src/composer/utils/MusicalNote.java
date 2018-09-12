@@ -7,7 +7,7 @@ public class MusicalNote {
 	public MusicalNote(String noteWithDuration) {
 		Integer length = noteWithDuration.length();
 		
-		setNote(noteWithDuration.substring(0, length - 2));
+		setNote(noteWithDuration.substring(0, length - 1));
 		setDuration(noteWithDuration.charAt(length - 1));
 	}
 	

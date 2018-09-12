@@ -7,11 +7,15 @@ import composer.actions.MusicalNotes;
 public class Composer {
 
 	public static void main(String[] args) {
-		boolean success = MusicalNotes.addNote("gh");
-		System.out.println(success);
-		
+		String[] notes = "Ch Dh Eh Fh Gh Ah Bh".split(" ");
+		for (String note: notes) {
+			if (!MusicalNotes.addNote(note)) {
+				System.exit(-1);
+			}
+		}
+		System.out.println(MusicalNotes.getNotesAsString());
 		Player player = new Player();
-	    player.play("C D E F G A B");
+	    player.play(MusicalNotes.getNotesAsString());
 	}
 
 }

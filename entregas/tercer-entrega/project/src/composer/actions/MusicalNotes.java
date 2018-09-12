@@ -17,6 +17,18 @@ public class MusicalNotes {
 		return store.getState().getNotes();
 	}
 	
+	public static String getNotesAsString() {
+		StringBuilder sbStr = new StringBuilder();
+		ArrayList<MusicalNote> notes = store.getState().getNotes();
+		
+		for (MusicalNote note: notes) {
+			sbStr.append(note.toString());
+			sbStr.append(" ");
+		}
+		
+		return sbStr.toString();
+	}
+	
 	public static boolean addNote(String noteWithDuration) {
 		State nextState = new State();
 		ArrayList<MusicalNote> notes = new ArrayList<MusicalNote>();
