@@ -1,6 +1,7 @@
 package composer.state;
 
 import java.util.ArrayList;
+
 import composer.utils.MusicalNote;
 
 public class State {	
@@ -16,5 +17,13 @@ public class State {
 
 	public void setNotes(ArrayList<MusicalNote> notes) {
 		this.notes = notes;
+	}
+	
+	public void update(State nextState) {
+		notes.addAll(nextState.getNotes());
+	}
+	
+	public void reset() {
+		setNotes(new ArrayList<MusicalNote>());
 	}
 }

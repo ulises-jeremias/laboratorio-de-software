@@ -26,6 +26,6 @@ public class Store {
 	}
 	
 	public void dispatch(State nextState) {
-		
+		state.update(nextState);
 	}
 }

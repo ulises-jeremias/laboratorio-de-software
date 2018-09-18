@@ -1,6 +1,6 @@
 package composer.utils;
 
-public class MusicalNote {
+public class MusicalNote implements Comparable<MusicalNote> {
 	private String note;
 	private char duration = 'q';
 
@@ -42,5 +42,10 @@ public class MusicalNote {
 	
 	public boolean isValid() {
 		return !note.isEmpty() && isValidDuration();
+	}
+
+	@Override
+	public int compareTo(MusicalNote note) {
+		return toString().equals(note.toString()) ? 1 : 0;
 	}
 }
