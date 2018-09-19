@@ -2,50 +2,50 @@ package composer.state;
 
 import java.util.ArrayList;
 
-import composer.utils.MusicalNote;
+import composer.utils.MusicalPattern;
 
 public class State {	
-	private ArrayList<MusicalNote> notes;
-	private String notesStr;
+	private ArrayList<MusicalPattern> patterns;
+	private String patternsStr;
 
 	public State() {
-		setNotes(new ArrayList<MusicalNote>());
-		setNotesStr("");
+		setPatterns(new ArrayList<MusicalPattern>());
+		setPatternsStr("");
 	}
 
 	/**
-	 * @return the notesStr
+	 * @return the patternsStr
 	 */
-	public String getNotesStr() {
-		return notesStr;
+	public String getPatternsStr() {
+		return patternsStr;
 	}
 
 	/**
-	 * @param notesStr the noteStr to set
+	 * @param patternsStr the patternsStr to set
 	 */
-	public void setNotesStr(String notesStr) {
-		this.notesStr = notesStr;
+	public void setPatternsStr(String patternsStr) {
+		this.patternsStr = patternsStr;
 	}
 
-	public ArrayList<MusicalNote> getNotes() {
-		return notes;
+	public ArrayList<MusicalPattern> getPatterns() {
+		return patterns;
 	}
 
-	public void setNotes(ArrayList<MusicalNote> notes) {
-		this.notes = notes;
+	public void setPatterns(ArrayList<MusicalPattern> patterns) {
+		this.patterns = patterns;
 	}
 	
 	public void update(State nextState) {
-		notes.addAll(nextState.getNotes());
-		setNotesStr(nextState.getNotesStr());
+		patterns.addAll(nextState.getPatterns());
+		setPatternsStr(nextState.getPatternsStr());
 	}
 
-	public void setNotesFromState(State nextState) {
-		setNotes(nextState.getNotes());
+	public void setPatternsFromState(State nextState) {
+		setPatterns(nextState.getPatterns());
 	}
 	
 	public void reset() {
-		setNotes(new ArrayList<MusicalNote>());
-		setNotesStr("");
+		setPatterns(new ArrayList<MusicalPattern>());
+		setPatternsStr("");
 	}
 }

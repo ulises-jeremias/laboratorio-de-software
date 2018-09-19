@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import org.jfugue.player.Player;
 
-import composer.actions.MusicalNotes;
+import composer.actions.MusicActions;
 import composer.containers.PlayerContainer;
 
 public class Composer {
@@ -25,14 +25,14 @@ public class Composer {
 		String[] notes = "Cs Ds Es Fs Gs As Bs".split(" ");
 		
 		for (String note: notes) {
-			if (!MusicalNotes.addNote(note)) {
+			if (!MusicActions.addNote(note)) {
 				System.exit(-1);
 			}
 		}
 		
-		System.out.println(MusicalNotes.getNotesAsString());
+		System.out.println(MusicActions.getPatternsAsString());
 		Player player = new Player();
-	    player.play(MusicalNotes.getNotesAsString());
+	    player.play(MusicActions.getPatternsAsString());
 	}
 
 }

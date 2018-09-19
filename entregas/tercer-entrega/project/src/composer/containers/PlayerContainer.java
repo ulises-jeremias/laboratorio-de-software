@@ -11,13 +11,14 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.jfugue.player.Player;
 
-import composer.actions.MusicalNotes;
+import composer.actions.MusicActions;
+import composer.components.Instrument;
+import composer.components.Instruments;
 import composer.components.Note;
 import composer.components.Notes;
 import composer.components.Pentagram;
@@ -34,6 +35,7 @@ public class PlayerContainer extends JFrame {
 	private JTextField textField2;
 
 	protected Note selectedNote;
+	protected Instrument selectedInstrument;
 
 	public PlayerContainer() {
 		super();
@@ -43,7 +45,7 @@ public class PlayerContainer extends JFrame {
 	public void initialize() {
 		player = new Player();
 
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -57,38 +59,43 @@ public class PlayerContainer extends JFrame {
 		JPanel notes = new Notes();
 		getContentPane().add(notes);
 		notes.setBounds(49, 108, 349, 58);
+
+		// Instruments definition
+		JPanel instruments = new Instruments();
+		getContentPane().add(instruments);
+		instruments.setBounds(49, 170, 349, 58);
 		
 		// Buttons definition
-		JLabel play_1 = new JLabel("");
-		play_1.setIcon(new ImageIcon(getClass().getResource("../images/play.png")));
-		play_1.setBounds(275, 169, 32, 32);
-		getContentPane().add(play_1);
-		
-		JLabel play_2 = new JLabel("");
-		play_2.setIcon(new ImageIcon(getClass().getResource("../images/play.png")));
-		play_2.setBounds(316, 225, 32, 32);
-		getContentPane().add(play_2);
-		
+		JLabel pentagramPlayButton = new JLabel("");
+		pentagramPlayButton.setIcon(new ImageIcon(getClass().getResource("../images/play.png")));
+		pentagramPlayButton.setBounds(275, 243, 32, 32);
+		getContentPane().add(pentagramPlayButton);
+
 		JLabel clean = new JLabel("");
 		clean.setIcon(new ImageIcon(getClass().getResource("../images/clear.png")));
-		clean.setBounds(319, 169, 32, 32);
+		clean.setBounds(319, 243, 32, 32);
 		getContentPane().add(clean);
 		
 		JLabel undo = new JLabel("");
 		undo.setIcon(new ImageIcon(getClass().getResource("../images/undo.png")));
-		undo.setBounds(365, 178, 30, 30);
+		undo.setBounds(365, 245, 30, 30);
 		getContentPane().add(undo);
+		
+		JLabel playTextFieldButton = new JLabel("");
+		playTextFieldButton.setIcon(new ImageIcon(getClass().getResource("../images/play.png")));
+		playTextFieldButton.setBounds(275, 305, 32, 32);
+		getContentPane().add(playTextFieldButton);
 
 		// Inputs definition
 		textField1 = new JTextField();
 		textField1.setEnabled(false);
 		textField1.setDisabledTextColor(Color.BLACK);
-		textField1.setBounds(49, 178, 215, 24);
+		textField1.setBounds(49, 249, 215, 24);
 		getContentPane().add(textField1);
 		textField1.setColumns(10);
 		
 		textField2 = new JTextField();
-		textField2.setBounds(86, 233, 215, 24);
+		textField2.setBounds(49, 310, 215, 24);
 		getContentPane().add(textField2);
 		textField2.setColumns(10);
 		
@@ -99,14 +106,15 @@ public class PlayerContainer extends JFrame {
 				@Override
 			    public void mouseClicked(MouseEvent e) {
 				    PentagramLine line = (PentagramLine) staveLine;
-				    System.out.println(line.getNote());
-
-					char duration = !selectedNote.equals(null) ? 
+				    
+					char duration = selectedNote != null ? 
 						selectedNote.getMusicalNote().getDuration() : 
 						'q';
+
+					System.out.println(duration);
 						
-					MusicalNotes.addNote(line.getNote(), duration);
-					textField1.setText(MusicalNotes.getNotesAsString());
+					MusicActions.addNote(line.getNote(), duration);
+					textField1.setText(MusicActions.getPatternsAsString());
 			    }
 		    });
 	    }
@@ -131,6 +139,30 @@ public class PlayerContainer extends JFrame {
 		    });
 		}
 
+		for (Component instrument : instruments.getComponents()) {
+			instrument.addMouseListener(new MouseAdapter() {
+			   
+			   @Override
+			   public void mouseClicked(MouseEvent e) {
+				   ((Instrument) instrument).toggleSelected();
+				   
+				   if (!((Instrument) instrument).isSelected()) {
+					   MusicActions.addInstrument("Piano");
+					   selectedInstrument = null;
+					   return;
+				   }
+				   
+				   if (selectedInstrument != null)
+					   selectedInstrument.toggleSelected();
+				   
+				   selectedInstrument = (Instrument) instrument;
+				   
+				   MusicActions.addInstrument(selectedInstrument.getMusicalInstrument());
+				   textField1.setText(MusicActions.getPatternsAsString());
+			   }
+		   });
+	   }
+
 		textField2.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
 			public void changedUpdate(DocumentEvent e) {
@@ -148,23 +180,23 @@ public class PlayerContainer extends JFrame {
 			}
 
 			public void update() {
-				MusicalNotes.onTextFieldChange(textField2.getText());
+				MusicActions.onTextFieldChange(textField2.getText());
 			}
 		}); 
 
-		play_1.addMouseListener(new MouseAdapter() {
+		pentagramPlayButton.addMouseListener(new MouseAdapter() {
 
 			@Override
 		    public void mouseClicked(MouseEvent e) {
-			    player.play(MusicalNotes.getNotesAsString());
+			    player.play(MusicActions.getPatternsAsString());
 		    }
 	    });
 		
-		play_2.addMouseListener(new MouseAdapter() {
+		playTextFieldButton.addMouseListener(new MouseAdapter() {
 
 			@Override
 		    public void mouseClicked(MouseEvent e) {
-			    player.play(MusicalNotes.getNotesString());
+			    player.play(MusicActions.getPatternsString());
 		    }
 		});
 		
@@ -172,8 +204,8 @@ public class PlayerContainer extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MusicalNotes.removeNotes();
-				textField1.setText(MusicalNotes.getNotesAsString());
+				MusicActions.removePatterns();
+				textField1.setText(MusicActions.getPatternsAsString());
 			}
 		});
 
@@ -181,8 +213,8 @@ public class PlayerContainer extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MusicalNotes.removeNotes(1);
-				textField1.setText(MusicalNotes.getNotesAsString());
+				MusicActions.removePatterns(1);
+				textField1.setText(MusicActions.getPatternsAsString());
 			}
 		});
 	}

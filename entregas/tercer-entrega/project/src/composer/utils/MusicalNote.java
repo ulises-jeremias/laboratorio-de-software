@@ -1,6 +1,6 @@
 package composer.utils;
 
-public class MusicalNote implements Comparable<MusicalNote> {
+public class MusicalNote implements MusicalPattern, Comparable<MusicalNote> {
 	private String note;
 	private char duration = 'q';
 
