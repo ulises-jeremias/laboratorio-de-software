@@ -1,8 +1,9 @@
 package composer.state;
 
 public class Store {
-	public static final String REPLACE = "set-notes";
-	public static final String UPDATE = "update-notes";
+	public static final String SET_NOTES = "set-notes";
+	public static final String UPDATE_NOTES_STR = "update-notes-str";
+	public static final String UPDATE_NOTES = "update-notes";
 	
 	private static Store instance = null;
 	
@@ -30,11 +31,12 @@ public class Store {
 	
 	public void dispatch(String type, State nextState) {
 		switch (type) {
-			case Store.UPDATE:
+			case Store.UPDATE_NOTES:
+			case Store.UPDATE_NOTES_STR:
 				state.update(nextState);
 				break;
-			case Store.REPLACE:
-				state.setNotes(nextState.getNotes());
+			case Store.SET_NOTES:
+				state.setNotesFromState(nextState);
 				break;
 		}
 	}

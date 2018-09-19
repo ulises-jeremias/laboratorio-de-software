@@ -2,6 +2,7 @@ package composer.components;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
@@ -19,6 +20,16 @@ public class Note extends JLabel {
 		super("");
 		setMusicalNote(new MusicalNote(note, duration));
 		setSelected(false);
+	}
+
+	public Note(char duration) {
+		super("");
+		setMusicalNote(new MusicalNote("", duration));
+		setSelected(false);
+	}
+
+	public void setImage(String relativePath) {
+		setIcon(new ImageIcon(getClass().getResource(relativePath)));
 	}
 
 	public MusicalNote getMusicalNote() {

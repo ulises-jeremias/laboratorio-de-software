@@ -29,6 +29,10 @@ public class MusicalNotes {
 		return sbStr.toString();
 	}
 	
+	public static String getNotesString() {
+		return store.getState().getNotesStr();
+	}
+	
 	public static boolean addNote(String noteWithDuration) {
 		State nextState = new State();
 		ArrayList<MusicalNote> notes = new ArrayList<MusicalNote>();
@@ -37,7 +41,46 @@ public class MusicalNotes {
 		nextState.setNotes(notes);
 		
 		try {
-			dispatch(Store.UPDATE, nextState);
+			dispatch(Store.UPDATE_NOTES, nextState);
+		}
+		catch(Error e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public static boolean addNote(String note, char duration) {
+		State nextState = new State();
+		ArrayList<MusicalNote> notes = new ArrayList<MusicalNote>();
+		
+		notes.add(new MusicalNote(note, duration));
+		nextState.setNotes(notes);
+		
+		try {
+			dispatch(Store.UPDATE_NOTES, nextState);
+		}
+		catch(Error e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public static boolean removeNotes(int n) {
+		State nextState = new State();
+		ArrayList<MusicalNote> previewNotes = store.getState().getNotes();
+
+		if (previewNotes.size() == 0) {
+			return true;
+		}
+
+		ArrayList<MusicalNote> notes = new ArrayList<MusicalNote>(previewNotes.subList(0, previewNotes.size() - n));
+		
+		nextState.setNotes(notes);
+		
+		try {
+			dispatch(Store.SET_NOTES, nextState);
 		}
 		catch(Error e) {
 			return false;
@@ -46,19 +89,28 @@ public class MusicalNotes {
 		return true;
 	}
 	
-	public static boolean onTextFieldChange(String field) {
+	public static boolean removeNotes() {
 		State nextState = new State();
-		ArrayList<MusicalNote> notes = new ArrayList<MusicalNote>();
 		
-		for (String noteWithDuration: field.split(" ")) {
-			System.out.println(noteWithDuration);
-			notes.add(new MusicalNote(noteWithDuration));
-		}
-		
-		nextState.setNotes(notes);
+		nextState.setNotes(new ArrayList<MusicalNote>());
 		
 		try {
-			dispatch(Store.REPLACE, nextState);
+			dispatch(Store.SET_NOTES, nextState);
+		}
+		catch(Error e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	public static boolean onTextFieldChange(String field) {
+		State nextState = new State();
+		
+		nextState.setNotesStr(field);
+		
+		try {
+			dispatch(Store.UPDATE_NOTES_STR, nextState);
 		}
 		catch(Error e) {
 			return false;

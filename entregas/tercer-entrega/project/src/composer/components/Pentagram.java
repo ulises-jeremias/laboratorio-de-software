@@ -5,7 +5,10 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class Pentagram extends JLayeredPane {
 	/**
@@ -19,9 +22,6 @@ public class Pentagram extends JLayeredPane {
 	}
 	
 	public void initialize() {
-		setBackground(Color.BLUE);
-		setBounds(0, 0, 450, 101);
-		
 		JLabel claveDeSol = new JLabel("");
 		claveDeSol.setBounds(0, 5, 66, 89);
 		add(claveDeSol);
@@ -93,5 +93,22 @@ public class Pentagram extends JLayeredPane {
 		penta_12.setBounds(0, 92, 450, 3);
 		add(penta_12);
 		penta_12.setBackground(Color.WHITE);
+
+		JPanel[] components = new PentagramLine[] {
+			penta_1,
+			penta_2,
+			penta_3,
+			penta_4,
+			penta_5,
+			penta_6,
+			penta_7,
+			penta_8,
+			penta_9,
+			penta_10,
+			penta_11,
+			penta_12,
+		};
+
+		setFocusTraversalPolicy(new FocusTraversalOnArray(components));
 	}
 }
