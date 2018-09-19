@@ -142,26 +142,26 @@ public class PlayerContainer extends JFrame {
 		for (Component instrument : instruments.getComponents()) {
 			instrument.addMouseListener(new MouseAdapter() {
 			   
-			   @Override
-			   public void mouseClicked(MouseEvent e) {
-				   ((Instrument) instrument).toggleSelected();
+			    @Override
+			    public void mouseClicked(MouseEvent e) {
+				    ((Instrument) instrument).toggleSelected();
 				   
-				   if (!((Instrument) instrument).isSelected()) {
-					   MusicActions.addInstrument("Piano");
-					   selectedInstrument = null;
-					   return;
-				   }
+				    if (!((Instrument) instrument).isSelected()) {
+				        MusicActions.addInstrument("Piano");
+					    selectedInstrument = null;
+					    return;
+				    }
 				   
-				   if (selectedInstrument != null)
-					   selectedInstrument.toggleSelected();
+				    if (selectedInstrument != null)
+					    selectedInstrument.toggleSelected();
 				   
-				   selectedInstrument = (Instrument) instrument;
+				    selectedInstrument = (Instrument) instrument;
 				   
-				   MusicActions.addInstrument(selectedInstrument.getMusicalInstrument());
-				   textField1.setText(MusicActions.getPatternsAsString());
-			   }
-		   });
-	   }
+				    MusicActions.addInstrument(selectedInstrument.getMusicalInstrument());
+				    textField1.setText(MusicActions.getPatternsAsString());
+			    }
+		    });
+	    }
 
 		textField2.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
