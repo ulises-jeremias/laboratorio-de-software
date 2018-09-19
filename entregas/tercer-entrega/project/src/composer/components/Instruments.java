@@ -27,11 +27,16 @@ public class Instruments extends JPanel {
         Instrument flute = new Instrument("Flute");
 		add(flute);
 		flute.setImage("../images/flute.png");
+
+		Instrument voice = new Instrument("Voice");
+		add(voice);
+		voice.setImage("../images/voice.gif");
 		
 		JLabel[] components = new Instrument[] { 
             piano,
             guitar,
-            flute,
+			flute,
+			voice,
 		};
 		
 		setFocusTraversalPolicy(new FocusTraversalOnArray(components));
