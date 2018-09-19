@@ -9,13 +9,10 @@ import composer.containers.PlayerContainer;
 
 public class Composer {
 	public static void main(String[] args) {
-		test();
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					new PlayerContainer()
-						.render()
 						.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -25,7 +22,7 @@ public class Composer {
 	}
 	
 	public static void test() {
-		String[] notes = "Ch Dh Eh Fh Gh Ah Bh".split(" ");
+		String[] notes = "Cs Ds Es Fs Gs As Bs".split(" ");
 		
 		for (String note: notes) {
 			if (!MusicalNotes.addNote(note)) {
