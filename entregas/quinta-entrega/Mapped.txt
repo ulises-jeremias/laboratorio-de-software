@@ -1,0 +1,11 @@
+<nombreClase>quintaentrega.Mapped</nombreClase>
+<nombreAtributo>nothing</nombreAtributo>
+<nombreValor>null</nombreValor>
+<nombreAtributo>valueFromConstructor</nombreAtributo>
+<nombreValor>2.5</nombreValor>
+<nombreAtributo>variableStatic</nombreAtributo>
+<nombreValor>static</nombreValor>
+<nombreAtributo>value</nombreAtributo>
+<nombreValor>myValue</nombreValor>
+<nombreAtributo>otherValue</nombreAtributo>
+<nombreValor>1</nombreValor>
