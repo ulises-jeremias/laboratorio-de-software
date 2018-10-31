@@ -2,12 +2,13 @@ package practica7.ejercicio2;
 
 public class Test2 {
 	public int unMetodo() {
+		int count = 0;
 		try {
 			System.out.println("Va a retornar 1");
-			return 1;
+			return ++count;
 		} finally {
 			System.out.println("Va a retornar 2");
-			return 2;
+			return ++count;
 		}
 	}
 
