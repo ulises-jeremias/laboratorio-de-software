@@ -66,7 +66,7 @@ public class Contenedor {
 				
 				FileWriter fileWriter = new FileWriter(file, true);
 				PrintWriter printWriter = new PrintWriter(fileWriter);
-				printWriter.println(new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date()) + " " + ipAddress);
+				printWriter.println(new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + " " + ipAddress);
 				printWriter.close();
 				
 				List<Method> methods = getMethodsToInvoke(servicio);
