@@ -12,7 +12,7 @@ public class Main implements Runnable {
 
 	private JFrame frame;
     private Thread thread = null;
-    private JLabel lblImgthreads;
+    private JLabel imageLabel;
     
 	/**
 	 * Launch the application.
@@ -58,14 +58,14 @@ public class Main implements Runnable {
 	}
 
 	private void initializeIntermittentImage() {
-		lblImgthreads = new JLabel();
-		lblImgthreads.setIcon(new ImageIcon(getClass().getResource("../../images/momo.jpg")));
-		frame.getContentPane().add(lblImgthreads, BorderLayout.CENTER);
-		lblImgthreads.setVisible(true);
+		imageLabel = new JLabel();
+		imageLabel.setIcon(new ImageIcon(getClass().getResource("../../images/momo.jpg")));
+		frame.getContentPane().add(imageLabel, BorderLayout.CENTER);
+		imageLabel.setVisible(true);
 	}
 	
 	private void toggleImage() {
-		lblImgthreads.setVisible(!lblImgthreads.isVisible());
+		imageLabel.setVisible(!imageLabel.isVisible());
 	}
 
 	@Override
@@ -75,7 +75,9 @@ public class Main implements Runnable {
 			try {
 				TimeUnit.MILLISECONDS.sleep(1000);
 				toggleImage();
-			} catch (InterruptedException e) {}
+			} catch (InterruptedException e) {
+				// exec interrupted
+			}
 		}
 	}
 }
