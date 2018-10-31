@@ -4,7 +4,17 @@ package practica8.ejercicio3;
 public class Servicio {
 	
 	@Invocar
-	public static String getLogin() {
-		return "Hola wacho";
+	public static String getHeader() {
+		return "<h1>Bienvenido guachin</h1>\n";
+	}
+	
+	@Invocar
+	public static String getHello() {
+		return "<h2>Este es el servidor de prueba</h2>\n";
+	}
+	
+	@Invocar
+	public static String getInfo() {
+		return "<h3>Practica 8 - Punto 3</h3>\n";
 	}
 }
