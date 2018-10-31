@@ -64,7 +64,7 @@ public class Contenedor {
 				String file = servidor.archivo();
 				String ipAddress = httpExchange.getLocalAddress().getHostName();
 				
-				FileWriter fileWriter = new FileWriter(file);
+				FileWriter fileWriter = new FileWriter(file, true);
 				PrintWriter printWriter = new PrintWriter(fileWriter);
 				printWriter.println(new SimpleDateFormat("dd-MM-yyyy").format(new Date()) + " " + ipAddress);
 				printWriter.close();
