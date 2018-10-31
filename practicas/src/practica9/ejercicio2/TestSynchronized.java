@@ -18,7 +18,7 @@ public class TestSynchronized extends Thread {
 		TestSynchronized t1 = new TestSynchronized("Thread 1");
 		TestSynchronized t2 = new TestSynchronized("Thread 2");
 		TestSynchronized t3 = new TestSynchronized("Thread 3");
-		
+
 		t1.start();
 		t2.start();
 		t3.start();
